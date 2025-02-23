@@ -15,6 +15,7 @@ namespace GalleryApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IUnsplashService, UnsplashService>();
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
