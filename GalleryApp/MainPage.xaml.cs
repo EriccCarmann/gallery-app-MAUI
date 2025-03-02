@@ -1,25 +1,28 @@
-﻿namespace GalleryApp
+﻿using GalleryApp.ViewModels;
+using Microsoft.Maui.Storage;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+
+namespace GalleryApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private bool _isLoading = false;
 
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new PhotoGridViewModel(new UnsplashService());
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected async override void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            if (BindingContext is PhotoGridViewModel viewModel)
+            {
+               await viewModel.LoadRandomPhotosAsync(14);
+            }
         }
     }
-
 }

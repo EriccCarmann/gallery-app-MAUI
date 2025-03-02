@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using GalleryApp.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace GalleryApp
 {
@@ -16,8 +17,9 @@ namespace GalleryApp
                 });
 
             builder.Services.AddSingleton<IUnsplashService, UnsplashService>();
+            builder.Services.AddSingleton<PhotoGridViewModel>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

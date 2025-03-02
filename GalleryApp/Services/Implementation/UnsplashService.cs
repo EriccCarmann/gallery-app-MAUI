@@ -16,7 +16,7 @@ namespace GalleryApp
                 BaseAddress = new Uri(BaseUrl)
             };
 
-            _httpClient.DefaultRequestHeaders.Authorization = 
+            _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Client-ID", AccessKey);
         }
 
@@ -27,6 +27,14 @@ namespace GalleryApp
             var content = await response.Content.ReadAsStringAsync();
             var json = JObject.Parse(content);
             return (JArray)json["results"];
+        }
+
+        public async Task<JArray> GetRandomPhotosAsync(int count)
+        {
+            var response = await _httpClient.GetAsync($"photos/random?count={count}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(content);
         }
     }
 }
