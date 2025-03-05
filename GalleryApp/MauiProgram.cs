@@ -1,4 +1,7 @@
-﻿using GalleryApp.ViewModels;
+﻿using GalleryApp.Services.Abstract;
+using GalleryApp.Services.Implementation;
+using GalleryApp.ViewModels;
+using GalleryApp.Views;
 using Microsoft.Extensions.Logging;
 
 namespace GalleryApp
@@ -17,7 +20,12 @@ namespace GalleryApp
                 });
 
             builder.Services.AddSingleton<IUnsplashService, UnsplashService>();
+            builder.Services.AddSingleton<IPhotoService, PhotoService>();
+
+            builder.Services.AddSingleton<PhotoDetailsView>();
+
             builder.Services.AddSingleton<PhotoGridViewModel>();
+            builder.Services.AddSingleton<PhotoDetailsViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
