@@ -14,7 +14,7 @@
                                        FontSize="18" 
                                        HorizontalTextAlignment="Center"
                                        HeightRequest="50" />
-                                <Image Source="{Binding UrlFull}"
+                                <Image Source="{Binding UrlRegular}"
                                        Aspect="AspectFill" 
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center" />

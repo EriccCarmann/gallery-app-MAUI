@@ -6,7 +6,7 @@ namespace GalleryApp
     {
         Task<JArray> SearchPhotosAsync(string query);
         Task<JArray> GetRandomPhotosAsync(int count);
-        Task<string> SavePhotoAsync(string image);
-        Task<JArray> SavePhotosAsync(string image);
+        //Task<string> SavePhotoAsync(string image);
+        //Task<JArray> SavePhotosAsync(string image);
     }
 }
