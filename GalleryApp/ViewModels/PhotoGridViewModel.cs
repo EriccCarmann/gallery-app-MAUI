@@ -1,46 +1,46 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
-using System;
+﻿using GalleryApp.Data;
+using GalleryApp.Models;
+using GalleryApp.Services.Abstract;
 using System.Collections.ObjectModel;
 
 namespace GalleryApp.ViewModels
 {
     public class PhotoGridViewModel
     {
-        private readonly IUnsplashService _unsplashService;
-        public ObservableCollection<string> PhotoUrls { get; } = new ObservableCollection<string>();
+        private GalleryDatabase galleryDatabase = new GalleryDatabase();
 
-        public PhotoGridViewModel(IUnsplashService unsplashService)
+        private readonly IUnsplashService _unsplashService;
+        private readonly IPhotoService _photoService;
+
+        private bool _isInitialized = false; 
+
+        public ObservableCollection<Photo> Photos { get; } = new ObservableCollection<Photo>();
+
+
+        public PhotoGridViewModel(IUnsplashService unsplashService, IPhotoService photoService)
         {
             _unsplashService = unsplashService;
+            _photoService = photoService;
         }
 
-        public async Task LoadRandomPhotosAsync(int num)
+        public async Task<List<Photo>> GetRandomPhotosAsync(int num) 
         {
-            var photos = await _unsplashService.GetRandomPhotosAsync(num);
-            PhotoUrls.Clear();
+            var photosJson = await _unsplashService.GetRandomPhotosAsync(num);
+            return _photoService.TurnIntoPhotoList(photosJson);
+        }
+
+        public async Task LoadRandomPhotosAsync(List<Photo> photos)
+        {
+            Photos.Clear();
+
+            photos.AddRange(await galleryDatabase.GetAllAsync());
 
             foreach (var photo in photos)
             {
-                var url = photo["urls"]?["small"]?.ToString();
+                var url = photo.UrlSmall;
                 if (!string.IsNullOrEmpty(url))
                 {
-                    PhotoUrls.Add(url);
-                    await Task.Delay(200);
-                }
-            }
-        }
-
-        public async Task LoadRandomLocalPhotosAsync(int num)
-        {
-            var photos = await _unsplashService.GetRandomPhotosAsync(num);
-            PhotoUrls.Clear();
-
-            foreach (var photo in photos)
-            {
-                var url = photo["urls"]?["small"]?.ToString();
-                if (!string.IsNullOrEmpty(url))
-                {
-                    PhotoUrls.Add(url);
+                    Photos.Add(photo);
                     await Task.Delay(200);
                 }
             }

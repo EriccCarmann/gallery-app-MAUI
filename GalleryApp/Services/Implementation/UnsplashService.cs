@@ -36,5 +36,18 @@ namespace GalleryApp
             var content = await response.Content.ReadAsStringAsync();
             return JArray.Parse(content);
         }
+
+        public async Task<JArray> SavePhotosAsync(string image)
+        {
+            var response = await _httpClient.GetAsync($"/photos?page=2&per_page=15");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(content);
+        }
+
+        public async Task<string> SavePhotoAsync(string image)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
