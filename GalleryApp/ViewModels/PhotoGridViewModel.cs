@@ -12,6 +12,8 @@ namespace GalleryApp.ViewModels
         private readonly IUnsplashService _unsplashService;
         private readonly IPhotoService _photoService;
 
+        private bool _isInitialized = false; 
+
         public ObservableCollection<Photo> Photos { get; } = new ObservableCollection<Photo>();
 
 
@@ -32,7 +34,7 @@ namespace GalleryApp.ViewModels
             Photos.Clear();
 
             photos.AddRange(await galleryDatabase.GetAllAsync());
-            
+
             foreach (var photo in photos)
             {
                 var url = photo.UrlSmall;

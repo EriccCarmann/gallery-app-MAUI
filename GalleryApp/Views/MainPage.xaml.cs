@@ -28,11 +28,6 @@ namespace GalleryApp
                 photos = await viewModel.GetRandomPhotosAsync(2);
                 await viewModel.LoadRandomPhotosAsync(photos);
 
-                foreach (Photo photo in photos)
-                {
-                    Console.WriteLine(photo.IsFavorite);
-                }
-
                 _isInitialized = true;
             }
         }

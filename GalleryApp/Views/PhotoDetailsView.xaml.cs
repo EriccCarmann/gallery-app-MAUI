@@ -1,6 +1,5 @@
 using GalleryApp.Data;
 using GalleryApp.Models;
-using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace GalleryApp.Views;
 
@@ -47,40 +46,21 @@ public partial class PhotoDetailsView : ContentPage
         await galleryDatabase.GetAsync(photo.PhotoId);
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-
-        //MyCarouselView.ItemsSource = ;
-
-        //foreach (Photo photo in _photos)
-        //{
-        //    if (PhotoIsSaved(photo) != null)
-        //    {
-        //        var currentPhoto = MyCarouselView.CurrentItem = photo;
-
-        //        //"heart_empty.svg"
-
-        //        //MyCarouselView.FavoriteImage
-        //    }
-        //}
-
-        
-    }
-
     void OnImageButtonClicked(object sender, EventArgs e)
     {
         var button = sender as ImageButton;
+        var currentPhoto = _photos[_currentImageIndex];
 
         if (button.Source.ToString().Contains("heart_empty"))
         {
+            currentPhoto.IsFavorite = true;
             AddFavoriteImage();
-            button.Source = "heart_full.svg";
         }
         else
         {
+            currentPhoto.IsFavorite = false;
             DeleteFavoriteImage();
-            button.Source = "heart_empty.svg";
         }
     }
+
 }
