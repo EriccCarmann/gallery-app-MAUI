@@ -22,7 +22,11 @@ public partial class PhotoDetailsView : ContentPage
 
     public async Task AddFavoriteImage() 
     {
-        var currentPhoto = _photos[_currentImageIndex];
+        var currentPhoto = _photos[MyCarouselView.Position];
+
+        var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
+
+        if (existing != null) return;
 
         var newPhoto = new Photo()
         {
@@ -32,26 +36,24 @@ public partial class PhotoDetailsView : ContentPage
             Description = currentPhoto.Description,
             IsFavorite = true
         };
-
         await galleryDatabase.CreateAsync(newPhoto);
     }
 
     public async Task DeleteFavoriteImage()
     {
-        await galleryDatabase.DeleteAsync(_photos[_currentImageIndex]);
-    }
+        var currentPhoto = _photos[MyCarouselView.Position];
 
-    public async Task PhotoIsSaved(Photo photo)
-    {
-        await galleryDatabase.GetAsync(photo.PhotoId);
+        var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
+
+        await galleryDatabase.DeleteAsync(currentPhoto);
     }
 
     void OnImageButtonClicked(object sender, EventArgs e)
     {
         var button = sender as ImageButton;
-        var currentPhoto = _photos[_currentImageIndex];
+        var currentPhoto = _photos[MyCarouselView.Position];
 
-        if (button.Source.ToString().Contains("heart_empty"))
+        if (currentPhoto.IsFavorite != true)
         {
             currentPhoto.IsFavorite = true;
             AddFavoriteImage();

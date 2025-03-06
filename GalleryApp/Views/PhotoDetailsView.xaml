@@ -25,11 +25,12 @@
                             <ImageButton
                                 Source="heart_empty.svg" 
                                 Clicked="OnImageButtonClicked"
+                                HeightRequest="60"
                                 Grid.Row="1"
                                 VerticalOptions="End"
                                 HorizontalOptions="Center"
                                 CornerRadius="50"
-                                Margin="0,0,0,20" 
+                                Padding="10,10,10,5"
                                 >
                                 <ImageButton.Triggers>
                                     <DataTrigger TargetType="ImageButton"

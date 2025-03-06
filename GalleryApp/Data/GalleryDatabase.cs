@@ -28,10 +28,10 @@ namespace GalleryApp.Data
             return await database.Table<Photo>().ToListAsync();
         }
 
-        public async Task<Photo> GetAsync(int id)
+        public async Task<Photo> GetByUrlAsync(string urlSmall)
         {
             await Init();
-            return await database.Table<Photo>().Where(i => i.PhotoId == id).FirstOrDefaultAsync();
+            return await database.Table<Photo>().Where(i => i.UrlSmall == urlSmall).FirstOrDefaultAsync();
         }
 
         public async Task DeleteAsync(Photo photo)
