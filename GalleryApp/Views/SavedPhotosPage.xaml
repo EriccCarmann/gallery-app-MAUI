@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GalleryApp.Views.SavedPhotosPage"
-             Title="Saved Photos">
+             Title="Favorite Photos">
     <CollectionView
         ItemsSource="{Binding Photos}"
         RemainingItemsThreshold="1"
@@ -20,12 +20,15 @@
             <DataTemplate>
                 <Grid>
                     <Image
-                        Source="{Binding UrlSmall}"
                         Aspect="AspectFill"
                         HeightRequest="100"
                         WidthRequest="100"
                         Margin="2"
                         BackgroundColor="#E0E0E0">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding UrlSmall}" 
+                                            CacheValidity="10" />
+                        </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
                                 Tapped="OnTapGestureRecognizerTapped"

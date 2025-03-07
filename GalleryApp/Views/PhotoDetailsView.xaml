@@ -14,10 +14,16 @@
                                        FontSize="18" 
                                        HorizontalTextAlignment="Center"
                                        HeightRequest="50" />
-                                <Image Source="{Binding UrlRegular}"
+                                <Image
                                        Aspect="AspectFill" 
                                        HorizontalOptions="Center"
-                                       VerticalOptions="Center" />
+                                        HeightRequest="500"
+                                       VerticalOptions="Center">
+                                    <Image.Source>
+                                        <UriImageSource Uri="{Binding UrlRegular}" 
+                                                        CacheValidity="10" />
+                                    </Image.Source>
+                                </Image>
                                 <Label Text="{Binding Description}"
                                        HorizontalTextAlignment="Center"
                                        HeightRequest="40" />
@@ -27,9 +33,10 @@
                                 Clicked="OnImageButtonClicked"
                                 HeightRequest="60"
                                 Grid.Row="1"
-                                
+                                VerticalOptions="End"
                                 HorizontalOptions="Center"
                                 CornerRadius="50"
+                                Margin="0,0,0,100"
                                 Padding="10,10,10,5"
                                 >
                                 <ImageButton.Triggers>
