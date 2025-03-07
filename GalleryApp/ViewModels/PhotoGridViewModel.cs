@@ -12,8 +12,6 @@ namespace GalleryApp.ViewModels
         private readonly IUnsplashService _unsplashService;
         private readonly IPhotoService _photoService;
 
-        private bool _isInitialized = false; 
-
         public ObservableCollection<Photo> Photos { get; } = new ObservableCollection<Photo>();
 
 
@@ -23,13 +21,13 @@ namespace GalleryApp.ViewModels
             _photoService = photoService;
         }
 
-        public async Task<List<Photo>> GetRandomPhotosAsync(int num) 
+        public async Task<List<Photo>> GetRandomPhotosAsync(int page, int per_page) 
         {
-            var photosJson = await _unsplashService.GetRandomPhotosAsync(num);
+            var photosJson = await _unsplashService.GetRandomPhotosAsync(page, per_page);
             return _photoService.TurnIntoPhotoList(photosJson);
         }
 
-        public async Task LoadRandomPhotosAsync(List<Photo> photos)
+        public async Task LoadRandomPhotosAsync(List<Photo> photos) //ЭТО БУДЕТ ВО ВТОРОЙ ВКЛАДКЕ
         {
             Photos.Clear();
 

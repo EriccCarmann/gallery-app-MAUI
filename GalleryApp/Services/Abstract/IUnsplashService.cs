@@ -5,8 +5,6 @@ namespace GalleryApp
     public interface IUnsplashService
     {
         Task<JArray> SearchPhotosAsync(string query);
-        Task<JArray> GetRandomPhotosAsync(int count);
-        //Task<string> SavePhotoAsync(string image);
-        //Task<JArray> SavePhotosAsync(string image);
+        Task<JArray> GetRandomPhotosAsync(int page, int per_page);
     }
 }
