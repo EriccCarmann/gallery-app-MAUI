@@ -1,7 +1,6 @@
 using GalleryApp.Models;
 using GalleryApp.Services.Implementation;
 using GalleryApp.ViewModels;
-using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace GalleryApp.Views;
 
@@ -71,12 +70,14 @@ public partial class NewPhotosPage : ContentPage
                     photos.Add(photo);
                 }
             }
-
-            isLoading = false;
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"Failed to load photos: {ex.Message}", "OK");
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
 

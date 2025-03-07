@@ -65,12 +65,14 @@ public partial class SavedPhotosPage : ContentPage
                     }
                 }
             }
-
-            isLoading = false;
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"Failed to load photos: {ex.Message}", "OK");
+        }
+        finally 
+        {
+            isLoading = false; 
         }
     }
 
