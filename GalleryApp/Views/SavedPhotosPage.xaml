@@ -24,7 +24,7 @@
                         HeightRequest="100"
                         WidthRequest="100"
                         Margin="2"
-                        BackgroundColor="#E0E0E0">
+                        BackgroundColor="{StaticResource Gray950}">
                         <Image.Source>
                             <UriImageSource Uri="{Binding UrlSmall}" 
                                             CacheValidity="10" />
