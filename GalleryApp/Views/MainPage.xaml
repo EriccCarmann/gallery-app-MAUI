@@ -1,54 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<TabbedPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GalleryApp.Views"
              x:Class="GalleryApp.MainPage">
-    <CollectionView
-        ItemsSource="{Binding Photos}"
-        RemainingItemsThreshold="1"
-        RemainingItemsThresholdReached="RemainingItemsThresholdReached"
-        BackgroundColor="Transparent"
-        Margin="8">
-        <CollectionView.ItemsLayout>
-            <GridItemsLayout 
-                Orientation="Vertical" 
-                Span="4"
-                VerticalItemSpacing="4"
-                HorizontalItemSpacing="4" />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Image
-                        Source="{Binding UrlSmall}"
-                        Aspect="AspectFill"
-                        HeightRequest="100"
-                        WidthRequest="100"
-                        Margin="2"
-                        BackgroundColor="#E0E0E0">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="OnTapGestureRecognizerTapped"
-                                CommandParameter="{Binding .}" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Image
-                        Source="heart_empty.svg" 
-                        Aspect="AspectFit"
-                        HeightRequest="30"
-                        WidthRequest="30"
-                        HorizontalOptions="End"
-                        VerticalOptions="Start"
-                        Margin="0,5,5,0">
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image"
-                                         Binding="{Binding IsFavorite}"
-                                         Value="True">
-                                <Setter Property="Source" Value="heart_full.svg" />
-                            </DataTrigger>
-                        </Image.Triggers>
-                    </Image>
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-</ContentPage>
+
+    <local:SavedPhotosPage Title="SavedPhotosPage" IconImageSource="heart_full.svg" />
+
+
+    <local:NewPhotosPage Title="NewPhotosPage" IconImageSource="heart_empty.svg" />
+    
+</TabbedPage>
