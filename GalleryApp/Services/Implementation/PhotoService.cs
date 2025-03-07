@@ -10,19 +10,27 @@ namespace GalleryApp.Services.Implementation
         {
             var photos = new List<Photo>();
 
-            foreach (var photo in photosJson)
+            try
             {
-                photos.Add(new Photo
+                foreach (var photo in photosJson)
                 {
-                    UrlSmall = photo["urls"]?["small"]?.ToString() ?? "No Small Image",
-                    UrlRegular = photo["urls"]?["regular"]?.ToString() ?? "No Regular Image",
-                    Description = photo["description"]?.ToString() ?? "No Description",
-                    Title = photo["alt_description"]?.ToString() ?? "No Title",
-                    IsFavorite = false
-                });
-            }
+                    photos.Add(new Photo
+                    {
+                        UrlSmall = photo["urls"]?["small"]?.ToString() ?? "No Small Image",
+                        UrlRegular = photo["urls"]?["regular"]?.ToString() ?? "No Regular Image",
+                        Description = photo["description"]?.ToString() ?? "No Description",
+                        Title = photo["alt_description"]?.ToString() ?? "No Title",
+                        IsFavorite = false
+                    });
+                }
 
-            return photos;
+                return photos;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"JSON parsing error: {ex.Message}");
+                throw;
+            }
         }
     }
 }

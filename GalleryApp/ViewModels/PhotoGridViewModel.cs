@@ -29,25 +29,14 @@ namespace GalleryApp.ViewModels
 
         public async Task<List<Photo>> GetSavedPhotosAsync()
         {
-            var photos = await galleryDatabase.GetAllAsync();
-            return photos;
-        }
-
-
-        public async Task LoadRandomPhotosAsync(List<Photo> photos) //ЭТО БУДЕТ ВО ВТОРОЙ ВКЛАДКЕ
-        {
-            Photos.Clear();
-
-            photos.AddRange(await galleryDatabase.GetAllAsync());
-
-            foreach (var photo in photos)
+            try 
             {
-                var url = photo.UrlSmall;
-                if (!string.IsNullOrEmpty(url))
-                {
-                    Photos.Add(photo);
-                    await Task.Delay(200);
-                }
+                return await galleryDatabase.GetAllAsync();
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("Error", $"Failed to load photos: {ex.Message}", "OK");
+                throw ex;
             }
         }
     }
