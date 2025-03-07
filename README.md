@@ -1,5 +1,7 @@
+Developer: https://github.com/EriccCarmann
+E-mail: alscrooge.a@gmail.com
+
 Project Overview:
-alscrooge.a@gmail.com
 This application fetches photos from https://unsplash.com/ and show their thumbnails on main tab screen. The second tab screen shows saved photos.
 The user can open details view by tapping on the image, and swipe left and right to see other photo's details.
 The photos can be stored in SQLite by tapping on heart-shaped button on details view.
