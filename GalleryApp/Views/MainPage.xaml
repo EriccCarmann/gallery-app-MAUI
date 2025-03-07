@@ -3,10 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GalleryApp.Views"
              x:Class="GalleryApp.MainPage">
-
-    <local:SavedPhotosPage Title="SavedPhotosPage" IconImageSource="heart_full.svg" />
-
-
-    <local:NewPhotosPage Title="NewPhotosPage" IconImageSource="heart_empty.svg" />
-    
 </TabbedPage>
