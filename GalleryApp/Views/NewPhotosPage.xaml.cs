@@ -70,6 +70,7 @@ public partial class NewPhotosPage : ContentPage
                     photos.Add(photo);
                 }
             }
+
         }
         catch (Exception ex)
         {

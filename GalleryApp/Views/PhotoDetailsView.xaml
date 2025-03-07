@@ -7,15 +7,14 @@
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <Frame HeightRequest="{OnIdiom Phone=700, Tablet=1100}">
-                        <Grid HeightRequest="{OnIdiom Phone=700, Tablet=900}"
-                            VerticalOptions="Center">
+                        <Grid>
                             <VerticalStackLayout Grid.Row="0" >
-                                <Label Text="{Binding Title}" 
+                                <Label Text="{Binding Title}"
                                        FontAttributes="Bold" 
                                        FontSize="18"
                                        HorizontalTextAlignment="Center"
-                                       HeightRequest="{OnIdiom Phone=50, Tablet=90}"
-                                       Padding="20,20,20,20"/>
+                                       HeightRequest="{OnIdiom Phone=70, Tablet=90}"
+                                       />
                                 <Image
                                        Aspect="AspectFill" 
                                        HorizontalOptions="Center"
@@ -34,7 +33,7 @@
                                 Grid.Row="1"
                                 Source="heart_empty.svg" 
                                 Clicked="OnImageButtonClicked"
-                                HeightRequest="{OnIdiom Phone=60, Tablet=90}"
+                                HeightRequest="50"
                                 VerticalOptions="End"
                                 HorizontalOptions="Center"
                                 CornerRadius="50"
