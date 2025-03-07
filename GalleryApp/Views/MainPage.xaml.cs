@@ -11,7 +11,7 @@ namespace GalleryApp
         private bool isLoading;
         private List<Photo> photos = new List<Photo>();
         private int currentPage = 1;
-        private HashSet<string> loadedPhotoUrls = new HashSet<string>();
+        //private HashSet<string> loadedPhotoUrls = new HashSet<string>();
 
         public MainPage()
         {
@@ -26,7 +26,7 @@ namespace GalleryApp
 
             if (BindingContext is PhotoGridViewModel viewModel)
             {
-                photos = await viewModel.GetRandomPhotosAsync(currentPage, 2);
+                photos.AddRange(await viewModel.GetRandomPhotosAsync(currentPage, 2));
                 foreach (var photo in photos)
                 {
                     viewModel.Photos.Add(photo);
@@ -44,15 +44,16 @@ namespace GalleryApp
 
             if (BindingContext is PhotoGridViewModel viewModel)
             {
-                var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 2);
+                var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
                 foreach (var photo in newPhotos)
                 {
-                    if (!string.IsNullOrEmpty(photo.UrlSmall) 
-                        && !loadedPhotoUrls.Contains(photo.UrlSmall))
-                    {
-                        viewModel.Photos.Add(photo);
-                        loadedPhotoUrls.Add(photo.UrlSmall);
-                    }
+                    viewModel.Photos.Add(photo);
+                    photos.Add(photo);
+
+                    //if (!loadedPhotoUrls.Contains(photo.UrlSmall))
+                    //{
+                    //    loadedPhotoUrls.Add(photo.UrlSmall);
+                    //}
                 }
             }
 
@@ -63,11 +64,9 @@ namespace GalleryApp
         {
             var tappedImage = sender as Image;
             int imageIndex = 0;
-            string imageUrl = tappedImage.BindingContext as string;
 
             if (tappedImage.Source is UriImageSource uriSource)
             {
-                imageUrl = uriSource.Uri.ToString();
                 foreach (var photo in photos)
                 {
                     imageIndex = photos.IndexOf(photo);

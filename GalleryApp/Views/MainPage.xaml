@@ -4,7 +4,7 @@
              x:Class="GalleryApp.MainPage">
     <CollectionView
         ItemsSource="{Binding Photos}"
-        RemainingItemsThreshold="30"
+        RemainingItemsThreshold="1"
         RemainingItemsThresholdReached="RemainingItemsThresholdReached"
         BackgroundColor="Transparent"
         Margin="8">
