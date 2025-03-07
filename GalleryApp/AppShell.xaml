@@ -7,10 +7,12 @@
     Shell.FlyoutBehavior="Disabled"
     Title="GalleryApp">
     <TabBar>
-        <Tab Icon="new_photos.png">
+        <Tab Title="New"
+            Icon="new_photos.png">
             <ShellContent ContentTemplate="{DataTemplate local:NewPhotosPage}" />
         </Tab>
-        <Tab Icon="saved_photos.png">
+        <Tab Title="Fav"
+            Icon="saved_photos.png">
             <ShellContent ContentTemplate="{DataTemplate local:SavedPhotosPage}" />
         </Tab>
     </TabBar>

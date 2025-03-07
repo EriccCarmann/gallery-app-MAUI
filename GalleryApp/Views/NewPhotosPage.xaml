@@ -20,12 +20,15 @@
             <DataTemplate>
                 <Grid>
                     <Image
-                        Source="{Binding UrlSmall}"
                         Aspect="AspectFill"
                         HeightRequest="100"
                         WidthRequest="100"
                         Margin="2"
                         BackgroundColor="#E0E0E0">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding UrlSmall}" 
+                                            CacheValidity="10" />
+                        </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
                                 Tapped="OnTapGestureRecognizerTapped"

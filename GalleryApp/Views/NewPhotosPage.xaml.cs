@@ -10,12 +10,12 @@ public partial class NewPhotosPage : ContentPage
     private bool isLoading;
     private List<Photo> photos = new List<Photo>();
     private int currentPage = 1;
-
-    //private HashSet<string> loadedPhotoUrls = new HashSet<string>();
+    private HashSet<string> loadedPhotoUrls = new HashSet<string>();
 
     public NewPhotosPage()
 	{
 		InitializeComponent();
+        
         BindingContext = new PhotoGridViewModel(new UnsplashService(), new PhotoService());
     }
 
@@ -26,11 +26,20 @@ public partial class NewPhotosPage : ContentPage
 
         if (BindingContext is PhotoGridViewModel viewModel)
         {
-            photos.AddRange(await viewModel.GetRandomPhotosAsync(currentPage, 2));
-            foreach (var photo in photos)
+            var initialPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
+            foreach (var photo in initialPhotos)
             {
-                viewModel.Photos.Add(photo);
+                if (!string.IsNullOrEmpty(photo.UrlSmall) && loadedPhotoUrls.Add(photo.UrlSmall))
+                {
+                    viewModel.Photos.Add(photo);
+                    photos.Add(photo);
+                }
             }
+            //photos.AddRange(await viewModel.GetRandomPhotosAsync(currentPage, 1));
+            //foreach (var photo in photos)
+            //{
+            //    viewModel.Photos.Add(photo);
+            //}
             _isInitialized = true;
         }
     }
@@ -44,9 +53,15 @@ public partial class NewPhotosPage : ContentPage
 
         if (BindingContext is PhotoGridViewModel viewModel)
         {
-            var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
+            var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 15);
+            
             foreach (var photo in newPhotos)
             {
+                //if (!string.IsNullOrEmpty(photo.UrlSmall) && loadedPhotoUrls.Add(photo.UrlSmall))
+                //{
+                //    viewModel.Photos.Add(photo);
+                //    photos.Add(photo);
+                //}
                 if (!photos.Any(existing => existing.UrlSmall == photo.UrlSmall))
                 {
                     viewModel.Photos.Add(photo);
