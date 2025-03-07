@@ -15,7 +15,7 @@ namespace GalleryApp.Services.Implementation
                 photos.Add(new Photo
                 {
                     UrlSmall = photo["urls"]?["small"]?.ToString() ?? "No Small Image",
-                    UrlFull = photo["urls"]?["full"]?.ToString() ?? "No Full Image",
+                    UrlRegular = photo["urls"]?["regular"]?.ToString() ?? "No Regular Image",
                     Description = photo["description"]?.ToString() ?? "No Description",
                     Title = photo["alt_description"]?.ToString() ?? "No Title",
                     IsFavorite = false

@@ -31,7 +31,7 @@ public partial class PhotoDetailsView : ContentPage
         var newPhoto = new Photo()
         {
             UrlSmall = currentPhoto.UrlSmall,
-            UrlFull = currentPhoto.UrlFull,
+            UrlRegular = currentPhoto.UrlRegular,
             Title = currentPhoto.Title,
             Description = currentPhoto.Description,
             IsFavorite = true

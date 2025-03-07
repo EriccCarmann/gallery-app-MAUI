@@ -29,25 +29,12 @@ namespace GalleryApp
             return (JArray)json["results"];
         }
 
-        public async Task<JArray> GetRandomPhotosAsync(int count)
+        public async Task<JArray> GetRandomPhotosAsync(int page, int per_page)
         {
-            var response = await _httpClient.GetAsync($"photos/random?count={count}");
+            var response = await _httpClient.GetAsync($"/photos?page={page}&per_page={per_page}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             return JArray.Parse(content);
-        }
-
-        public async Task<JArray> SavePhotosAsync(string image)
-        {
-            var response = await _httpClient.GetAsync($"/photos?page=2&per_page=15");
-            response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            return JArray.Parse(content);
-        }
-
-        public async Task<string> SavePhotoAsync(string image)
-        {
-            throw new NotImplementedException();
         }
     }
 }
