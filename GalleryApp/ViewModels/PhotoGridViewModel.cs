@@ -27,6 +27,13 @@ namespace GalleryApp.ViewModels
             return _photoService.TurnIntoPhotoList(photosJson);
         }
 
+        public async Task<List<Photo>> GetSavedPhotosAsync()
+        {
+            var photos = await galleryDatabase.GetAllAsync();
+            return photos;
+        }
+
+
         public async Task LoadRandomPhotosAsync(List<Photo> photos) //ЭТО БУДЕТ ВО ВТОРОЙ ВКЛАДКЕ
         {
             Photos.Clear();

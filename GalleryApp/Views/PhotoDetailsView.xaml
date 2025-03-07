@@ -27,7 +27,7 @@
                                 Clicked="OnImageButtonClicked"
                                 HeightRequest="60"
                                 Grid.Row="1"
-                                VerticalOptions="End"
+                                
                                 HorizontalOptions="Center"
                                 CornerRadius="50"
                                 Padding="10,10,10,5"

@@ -5,7 +5,7 @@ using GalleryApp.Views;
 
 namespace GalleryApp
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : ContentPage
     {
         //private bool _isInitialized = false;
         //private bool isLoading;
