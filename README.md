@@ -6,7 +6,7 @@ The photos can be stored in SQLite by tapping on heart-shaped button on details 
 MVVM patter wasa used.
 
 Screenshots:
-![image](https://github.com/user-attachments/assets/75043745-34b8-4eaf-b8a8-ec74e47c7a15)
-![image](https://github.com/user-attachments/assets/be515eba-5ae5-4f68-a65b-9038130483bd)
-![image](https://github.com/user-attachments/assets/2766f7ea-378a-47e2-87b5-78206db67540)
-![image](https://github.com/user-attachments/assets/631277a4-d19b-4430-9d5b-6e1f24789fb7)
+![image](https://github.com/user-attachments/assets/28497a71-d17a-472d-af17-d60ef0482a21)
+![image](https://github.com/user-attachments/assets/3842c3e1-a0d3-4508-8c33-6a3776763a3e)
+![image](https://github.com/user-attachments/assets/ed80caff-8d0d-4216-abe4-0364ffa9e64b)
+![image](https://github.com/user-attachments/assets/68d96ac8-1b7e-40d8-bbb1-f6d6c1d2eec2)
