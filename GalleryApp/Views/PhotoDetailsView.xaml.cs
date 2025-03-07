@@ -22,30 +22,44 @@ public partial class PhotoDetailsView : ContentPage
 
     public async Task AddFavoriteImage() 
     {
-        var currentPhoto = _photos[MyCarouselView.Position];
-
-        var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
-
-        if (existing != null) return;
-
-        var newPhoto = new Photo()
+        try
         {
-            UrlSmall = currentPhoto.UrlSmall,
-            UrlRegular = currentPhoto.UrlRegular,
-            Title = currentPhoto.Title,
-            Description = currentPhoto.Description,
-            IsFavorite = true
-        };
-        await galleryDatabase.CreateAsync(newPhoto);
+            var currentPhoto = _photos[MyCarouselView.Position];
+
+            var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
+
+            if (existing != null) return;
+
+            var newPhoto = new Photo()
+            {
+                UrlSmall = currentPhoto.UrlSmall,
+                UrlRegular = currentPhoto.UrlRegular,
+                Title = currentPhoto.Title,
+                Description = currentPhoto.Description,
+                IsFavorite = true
+            };
+            await galleryDatabase.CreateAsync(newPhoto);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to add favorite photo: {ex.Message}", "OK");
+        }
     }
 
     public async Task DeleteFavoriteImage()
     {
-        var currentPhoto = _photos[MyCarouselView.Position];
+        try
+        {
+            var currentPhoto = _photos[MyCarouselView.Position];
 
-        var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
+            var existing = await galleryDatabase.GetByUrlAsync(currentPhoto.UrlSmall);
 
-        await galleryDatabase.DeleteAsync(currentPhoto);
+            await galleryDatabase.DeleteAsync(currentPhoto);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to delete photo from favorites: {ex.Message}", "OK");
+        }
     }
 
     void OnImageButtonClicked(object sender, EventArgs e)

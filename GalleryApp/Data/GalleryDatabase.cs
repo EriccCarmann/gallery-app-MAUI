@@ -18,8 +18,21 @@ namespace GalleryApp.Data
 
         public async Task CreateAsync(Photo photo)
         {
-            await Init();
-            await database.InsertAsync(photo);
+            try
+            {
+                await Init();
+                await database.InsertAsync(photo);
+            }
+            catch (SQLiteException ex) when (ex.Result == SQLite3.Result.Constraint)
+            {
+                Console.WriteLine("Duplicate photo skipped");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Insert failed: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<List<Photo>> GetAllAsync()
@@ -30,14 +43,40 @@ namespace GalleryApp.Data
 
         public async Task<Photo> GetByUrlAsync(string urlSmall)
         {
-            await Init();
-            return await database.Table<Photo>().Where(i => i.UrlSmall == urlSmall).FirstOrDefaultAsync();
+            try
+            {
+                await Init();
+                return await database.Table<Photo>().Where(i => i.UrlSmall == urlSmall).FirstOrDefaultAsync();
+            }
+            catch (SQLiteException ex) when (ex.Result == SQLite3.Result.NotFound)
+            {
+                Console.WriteLine("Photo not found");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Get photo failed: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task DeleteAsync(Photo photo)
         {
-            await Init();
-            await database.DeleteAsync(photo);
+            try
+            {
+                await Init();
+                await database.DeleteAsync(photo);
+            }
+            catch (SQLiteException ex) when (ex.Result == SQLite3.Result.NotFound)
+            {
+                Console.WriteLine("Photo not found");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Get photo failed: {ex.Message}");
+                throw;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using GalleryApp.Models;
 using GalleryApp.Services.Implementation;
 using GalleryApp.ViewModels;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace GalleryApp.Views;
 
@@ -24,64 +25,86 @@ public partial class NewPhotosPage : ContentPage
         base.OnAppearing();
         if (_isInitialized) return;
 
-        if (BindingContext is PhotoGridViewModel viewModel)
+        try
         {
-            var initialPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
-
-            foreach (var photo in initialPhotos)
+            if (BindingContext is PhotoGridViewModel viewModel)
             {
-                if (loadedPhotoUrls.Add(photo.UrlSmall))
-                {
-                    viewModel.Photos.Add(photo);
-                    photos.Add(photo);
-                }
-            }
+                var initialPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
 
-            _isInitialized = true;
+                foreach (var photo in initialPhotos)
+                {
+                    if (loadedPhotoUrls.Add(photo.UrlSmall))
+                    {
+                        viewModel.Photos.Add(photo);
+                        photos.Add(photo);
+                    }
+                }
+
+                _isInitialized = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to load photos: {ex.Message}", "OK");
         }
     }
 
     private async void RemainingItemsThresholdReached(object sender, EventArgs e)
     {
         if (isLoading) return;
-        isLoading = true;
 
-        currentPage++;
-
-        if (BindingContext is PhotoGridViewModel viewModel)
+        try
         {
-            var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 15);
+            isLoading = true;
 
-            foreach (var photo in newPhotos)
+            currentPage++;
+
+            if (BindingContext is PhotoGridViewModel viewModel)
             {
-                await Task.Delay(100);
+                var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 15);
 
-                viewModel.Photos.Add(photo);
-                photos.Add(photo);
+                foreach (var photo in newPhotos)
+                {
+                    await Task.Delay(100);
+
+                    viewModel.Photos.Add(photo);
+                    photos.Add(photo);
+                }
             }
-        }
 
-        isLoading = false;
+            isLoading = false;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to load photos: {ex.Message}", "OK");
+        }
     }
 
     private void OnTapGestureRecognizerTapped(object sender, EventArgs e)
     {
-        var tappedImage = sender as Image;
-        int imageIndex = 0;
-        string imageUrl = tappedImage.BindingContext as string;
-
-        if (tappedImage.Source is UriImageSource uriSource)
+        try
         {
-            imageUrl = uriSource.Uri.ToString();
-            foreach (var photo in photos)
+            var tappedImage = sender as Image;
+            int imageIndex = 0;
+            string imageUrl = tappedImage.BindingContext as string;
+
+            if (tappedImage.Source is UriImageSource uriSource)
             {
-                if (photo.UrlSmall == imageUrl)
+                imageUrl = uriSource.Uri.ToString();
+                foreach (var photo in photos)
                 {
-                    imageIndex = photos.IndexOf(photo);
-                    break;
+                    if (photo.UrlSmall == imageUrl)
+                    {
+                        imageIndex = photos.IndexOf(photo);
+                        break;
+                    }
                 }
             }
+            Navigation.PushAsync(new PhotoDetailsView(photos, imageIndex));
         }
-        Navigation.PushAsync(new PhotoDetailsView(photos, imageIndex));
+        catch (Exception ex)
+        {
+            DisplayAlert("Error", $"Failed to go to photo's details: {ex.Message}", "OK");
+        }
     }
 }

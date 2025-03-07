@@ -25,7 +25,6 @@ namespace GalleryApp
             builder.Services.AddSingleton<PhotoDetailsView>();
 
             builder.Services.AddSingleton<PhotoGridViewModel>();
-            builder.Services.AddSingleton<PhotoDetailsViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
