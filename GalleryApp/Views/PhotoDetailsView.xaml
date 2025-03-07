@@ -6,19 +6,21 @@
         <CarouselView x:Name="MyCarouselView">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <Frame HeightRequest="800">
-                        <Grid>
-                            <VerticalStackLayout Grid.Row="0">
+                    <Frame HeightRequest="{OnIdiom Phone=700, Tablet=1100}">
+                        <Grid HeightRequest="{OnIdiom Phone=700, Tablet=900}"
+                            VerticalOptions="Center">
+                            <VerticalStackLayout Grid.Row="0" >
                                 <Label Text="{Binding Title}" 
                                        FontAttributes="Bold" 
-                                       FontSize="18" 
+                                       FontSize="18"
                                        HorizontalTextAlignment="Center"
-                                       HeightRequest="50" />
+                                       HeightRequest="{OnIdiom Phone=50, Tablet=90}"
+                                       Padding="20,20,20,20"/>
                                 <Image
                                        Aspect="AspectFill" 
                                        HorizontalOptions="Center"
-                                        HeightRequest="500"
-                                       VerticalOptions="Center">
+                                       VerticalOptions="Center"
+                                       HeightRequest="{OnIdiom Phone=500, Tablet=700}">
                                     <Image.Source>
                                         <UriImageSource Uri="{Binding UrlRegular}" 
                                                         CacheValidity="10" />
@@ -29,15 +31,13 @@
                                        HeightRequest="40" />
                             </VerticalStackLayout>
                             <ImageButton
+                                Grid.Row="1"
                                 Source="heart_empty.svg" 
                                 Clicked="OnImageButtonClicked"
-                                HeightRequest="60"
-                                Grid.Row="1"
+                                HeightRequest="{OnIdiom Phone=60, Tablet=90}"
                                 VerticalOptions="End"
                                 HorizontalOptions="Center"
                                 CornerRadius="50"
-                                Margin="0,0,0,100"
-                                Padding="10,10,10,5"
                                 >
                                 <ImageButton.Triggers>
                                     <DataTrigger TargetType="ImageButton"

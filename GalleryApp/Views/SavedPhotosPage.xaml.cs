@@ -11,8 +11,6 @@ public partial class SavedPhotosPage : ContentPage
     private List<Photo> photos = new List<Photo>();
     private int currentPage = 1;
 
-    //private HashSet<string> loadedPhotoUrls = new HashSet<string>();
-
     public SavedPhotosPage()
 	{
 		InitializeComponent();
@@ -49,6 +47,8 @@ public partial class SavedPhotosPage : ContentPage
             {
                 if (!photos.Any(existing => existing.UrlSmall == photo.UrlSmall))
                 {
+                    await Task.Delay(100);
+
                     viewModel.Photos.Add(photo);
                     photos.Add(photo);
                 }
@@ -62,13 +62,18 @@ public partial class SavedPhotosPage : ContentPage
     {
         var tappedImage = sender as Image;
         int imageIndex = 0;
+        string imageUrl = tappedImage.BindingContext as string;
 
         if (tappedImage.Source is UriImageSource uriSource)
         {
+            imageUrl = uriSource.Uri.ToString();
             foreach (var photo in photos)
             {
-                imageIndex = photos.IndexOf(photo);
-                break;
+                if (photo.UrlSmall == imageUrl)
+                {
+                    imageIndex = photos.IndexOf(photo);
+                    break;
+                }
             }
         }
         Navigation.PushAsync(new PhotoDetailsView(photos, imageIndex));

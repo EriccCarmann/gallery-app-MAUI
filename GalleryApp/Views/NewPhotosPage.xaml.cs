@@ -27,19 +27,16 @@ public partial class NewPhotosPage : ContentPage
         if (BindingContext is PhotoGridViewModel viewModel)
         {
             var initialPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
+
             foreach (var photo in initialPhotos)
             {
-                if (!string.IsNullOrEmpty(photo.UrlSmall) && loadedPhotoUrls.Add(photo.UrlSmall))
+                if (loadedPhotoUrls.Add(photo.UrlSmall))
                 {
                     viewModel.Photos.Add(photo);
                     photos.Add(photo);
                 }
             }
-            //photos.AddRange(await viewModel.GetRandomPhotosAsync(currentPage, 1));
-            //foreach (var photo in photos)
-            //{
-            //    viewModel.Photos.Add(photo);
-            //}
+
             _isInitialized = true;
         }
     }
@@ -54,19 +51,13 @@ public partial class NewPhotosPage : ContentPage
         if (BindingContext is PhotoGridViewModel viewModel)
         {
             var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 15);
-            
+
             foreach (var photo in newPhotos)
             {
-                //if (!string.IsNullOrEmpty(photo.UrlSmall) && loadedPhotoUrls.Add(photo.UrlSmall))
-                //{
-                //    viewModel.Photos.Add(photo);
-                //    photos.Add(photo);
-                //}
-                if (!photos.Any(existing => existing.UrlSmall == photo.UrlSmall))
-                {
-                    viewModel.Photos.Add(photo);
-                    photos.Add(photo);
-                }
+                await Task.Delay(100);
+
+                viewModel.Photos.Add(photo);
+                photos.Add(photo);
             }
         }
 
