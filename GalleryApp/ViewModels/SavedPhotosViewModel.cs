@@ -8,7 +8,7 @@ namespace GalleryApp.ViewModels;
 
 public class SavedPhotosViewModel : ObservableObject
 {
-    private readonly PhotoGridViewModel _photoGridViewModel;
+    private readonly IPhotoService _photoService;
     private readonly INavigationService _navigationService;
     private readonly IDialogService _dialogService;
     private bool _isInitialized = false;
@@ -21,11 +21,11 @@ public class SavedPhotosViewModel : ObservableObject
     public IAsyncRelayCommand LoadMorePhotosCommand { get; }
     public IRelayCommand<Photo> OpenPhotoCommand { get; }
 
-    public SavedPhotosViewModel(PhotoGridViewModel photoGridViewModel, 
+    public SavedPhotosViewModel(IPhotoService photoService, 
         INavigationService navigationService,
         IDialogService dialogService)
     {
-        _photoGridViewModel = photoGridViewModel;
+        _photoService = photoService;
         _navigationService = navigationService;
         _dialogService = dialogService;
 
@@ -41,7 +41,7 @@ public class SavedPhotosViewModel : ObservableObject
 
         try
         {
-            var newPhotos = await _photoGridViewModel.GetSavedPhotosAsync();
+            var newPhotos = await _photoService.GetSavedPhotosAsync();
             foreach (var photo in newPhotos)
             {
                 Photos.Add(photo);
@@ -63,14 +63,11 @@ public class SavedPhotosViewModel : ObservableObject
         try
         {
             _currentPage++;
-            var newPhotos = await _photoGridViewModel.GetSavedPhotosAsync();
+            var newPhotos = await _photoService.GetSavedPhotosAsync();
             foreach (var photo in newPhotos)
             {
-                if (!Photos.Any(existing => existing.UrlSmall == photo.UrlSmall))
-                {
-                    await Task.Delay(100);
-                    Photos.Add(photo);
-                }
+                await Task.Delay(100);
+                Photos.Add(photo);
             }
         }
         catch (Exception ex)

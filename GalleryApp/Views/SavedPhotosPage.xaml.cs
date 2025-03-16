@@ -1,4 +1,3 @@
-using GalleryApp.Services.Implementation;
 using GalleryApp.ViewModels;
 
 namespace GalleryApp.Views;

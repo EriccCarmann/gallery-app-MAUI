@@ -24,8 +24,6 @@ namespace GalleryApp
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
 
-            builder.Services.AddSingleton<PhotoDetailsView>();
-            builder.Services.AddSingleton<PhotoGridViewModel>();
             builder.Services.AddSingleton<SavedPhotosViewModel>();
             builder.Services.AddSingleton<NewPhotosViewModel>();
 
