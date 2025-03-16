@@ -9,7 +9,7 @@ namespace GalleryApp.Services.Implementation
         public void GoToPhotoDetails(List<Photo> photos, int index)
         {
             var navigation = Application.Current.MainPage.Navigation;
-            navigation.PushAsync(new PhotoDetailsView(photos, index));
+            navigation.PushAsync(new PhotoDetailsPage(photos, index));
         }
     }
 }

@@ -27,7 +27,7 @@ namespace GalleryApp
             builder.Services.AddSingleton<SavedPhotosViewModel>();
             builder.Services.AddSingleton<NewPhotosViewModel>();
 
-            builder.Services.AddSingleton<PhotoDetailsView>();
+            builder.Services.AddSingleton<PhotoDetailsPage>();
             builder.Services.AddSingleton<SavedPhotosPage>();  
             builder.Services.AddSingleton<NewPhotosPage>();
 #if DEBUG

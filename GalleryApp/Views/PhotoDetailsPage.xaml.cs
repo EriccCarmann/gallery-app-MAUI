@@ -3,13 +3,13 @@ using GalleryApp.Models;
 
 namespace GalleryApp.Views;
 
-public partial class PhotoDetailsView : ContentPage
+public partial class PhotoDetailsPage : ContentPage
 {
     private GalleryDatabase galleryDatabase = new GalleryDatabase();
     private List<Photo> _photos;
     int _currentImageIndex = 0;
 
-    public PhotoDetailsView(List<Photo> photos, int currentImageIndex)
+    public PhotoDetailsPage(List<Photo> photos, int currentImageIndex)
 	{
 		InitializeComponent();
 

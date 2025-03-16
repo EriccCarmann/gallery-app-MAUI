@@ -67,8 +67,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\PhotoDetailsView.xaml.cs">
-	    <DependentUpon>PhotoDetailsView.xaml</DependentUpon>
+	  <Compile Update="Views\PhotoDetailsPage.xaml.cs">
+	    <DependentUpon>PhotoDetailsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -76,7 +76,7 @@
 	  <MauiXaml Update="Views\NewPhotosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PhotoDetailsView.xaml">
+	  <MauiXaml Update="Views\PhotoDetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SavedPhotosPage.xaml">
