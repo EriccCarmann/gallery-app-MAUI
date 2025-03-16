@@ -1,22 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GalleryApp.Views.PhotoDetailsView"
+             xmlns:models="clr-namespace:GalleryApp.Models"
+             xmlns:viewmodel="clr-namespace:GalleryApp.ViewModels"
+             x:Class="GalleryApp.Views.PhotoDetailsPage"
+             x:DataType="viewmodel:PhotoDetailsViewModel"
              Title="Photo Details">
     <VerticalStackLayout>
-        <CarouselView x:Name="MyCarouselView">
+        <CarouselView ItemsSource="{Binding Photos}"
+                      Position="{Binding CurrentPosition, Mode=TwoWay}">
             <CarouselView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:Photo">
                     <Frame HeightRequest="{OnIdiom Phone=700, Tablet=1100}">
                         <Grid>
-                            <VerticalStackLayout Grid.Row="0" >
+                            <VerticalStackLayout>
                                 <Label Text="{Binding Title}"
                                        FontAttributes="Bold" 
                                        FontSize="18"
                                        HorizontalTextAlignment="Center"
-                                       HeightRequest="{OnIdiom Phone=70, Tablet=90}"
-                                       />
-                                <Image
-                                       Aspect="AspectFill" 
+                                       HeightRequest="{OnIdiom Phone=70, Tablet=90}" />
+                                <Image Aspect="AspectFill" 
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
                                        HeightRequest="{OnIdiom Phone=500, Tablet=700}">
@@ -29,23 +32,23 @@
                                        HorizontalTextAlignment="Center"
                                        HeightRequest="40" />
                             </VerticalStackLayout>
-                            <ImageButton
-                                Grid.Row="1"
-                                Source="heart_empty.svg" 
-                                Clicked="OnImageButtonClicked"
-                                HeightRequest="50"
-                                VerticalOptions="End"
-                                HorizontalOptions="Center"
-                                CornerRadius="50"
-                                >
+                            <ImageButton Source="heart_empty.svg" 
+                                       Command="{Binding BindingContext.ToggleFavoriteCommand, 
+                                                 Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                       CommandParameter="{Binding .}"
+                                       HeightRequest="50"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       CornerRadius="50">
                                 <ImageButton.Triggers>
                                     <DataTrigger TargetType="ImageButton"
-                                                 Binding="{Binding IsFavorite}"
-                                                 Value="True">
+                                        Binding="{Binding IsFavorite}"
+                                        Value="True">
                                         <Setter Property="Source" Value="heart_full.svg" />
                                     </DataTrigger>
                                 </ImageButton.Triggers>
                             </ImageButton>
+
                         </Grid>
                     </Frame>
                 </DataTemplate>

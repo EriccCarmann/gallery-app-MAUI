@@ -21,8 +21,16 @@ namespace GalleryApp
 
             builder.Services.AddSingleton<IUnsplashService, UnsplashService>();
             builder.Services.AddSingleton<IPhotoService, PhotoService>();
-            builder.Services.AddSingleton<PhotoDetailsView>();
-            builder.Services.AddSingleton<PhotoGridViewModel>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
+            
+            builder.Services.AddSingleton<SavedPhotosViewModel>();
+            builder.Services.AddSingleton<NewPhotosViewModel>();
+            builder.Services.AddSingleton<PhotoDetailsViewModel>();
+
+            builder.Services.AddSingleton<PhotoDetailsPage>();
+            builder.Services.AddSingleton<SavedPhotosPage>();  
+            builder.Services.AddSingleton<NewPhotosPage>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
