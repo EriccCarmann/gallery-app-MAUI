@@ -1,11 +1,12 @@
-﻿using GalleryApp.Data;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using GalleryApp.Data;
 using GalleryApp.Models;
 using GalleryApp.Services.Abstract;
 using System.Collections.ObjectModel;
 
 namespace GalleryApp.ViewModels
 {
-    public class PhotoGridViewModel
+    public class PhotoGridViewModel : ObservableObject
     {
         private GalleryDatabase galleryDatabase = new GalleryDatabase();
 

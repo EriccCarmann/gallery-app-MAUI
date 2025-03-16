@@ -38,6 +38,7 @@ public partial class PhotoDetailsView : ContentPage
                 Description = currentPhoto.Description,
                 IsFavorite = true
             };
+
             await galleryDatabase.CreateAsync(newPhoto);
         }
         catch (Exception ex)

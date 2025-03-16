@@ -29,10 +29,12 @@ public partial class NewPhotosPage : ContentPage
             if (BindingContext is PhotoGridViewModel viewModel)
             {
                 var initialPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 1);
+                var savedPhotos = await viewModel.GetSavedPhotosAsync();
 
                 foreach (var photo in initialPhotos)
                 {
-                    if (loadedPhotoUrls.Add(photo.UrlSmall))
+                    if (savedPhotos.Any(savedPhoto => savedPhoto.UrlSmall != photo.UrlSmall) &&
+                        loadedPhotoUrls.Add(photo.UrlSmall))
                     {
                         viewModel.Photos.Add(photo);
                         photos.Add(photo);
@@ -61,16 +63,19 @@ public partial class NewPhotosPage : ContentPage
             if (BindingContext is PhotoGridViewModel viewModel)
             {
                 var newPhotos = await viewModel.GetRandomPhotosAsync(currentPage, 15);
+                var savedPhotos = await viewModel.GetSavedPhotosAsync();
 
                 foreach (var photo in newPhotos)
                 {
-                    await Task.Delay(100);
+                    if (savedPhotos.Any(savedPhoto => savedPhoto.UrlSmall != photo.UrlSmall))
+                    {
+                        await Task.Delay(100);
 
-                    viewModel.Photos.Add(photo);
-                    photos.Add(photo);
+                        viewModel.Photos.Add(photo);
+                        photos.Add(photo);
+                    }
                 }
             }
-
         }
         catch (Exception ex)
         {
