@@ -11,6 +11,8 @@ public class SavedPhotosViewModel : ObservableObject
     private readonly IPhotoService _photoService;
     private readonly INavigationService _navigationService;
     private readonly IDialogService _dialogService;
+    private readonly HashSet<string> _loadedPhotoUrls = new HashSet<string>();
+
     private bool _isInitialized = false;
     private bool _isLoading = false;
     private int _currentPage = 1;
@@ -41,11 +43,16 @@ public class SavedPhotosViewModel : ObservableObject
 
         try
         {
-            var newPhotos = await _photoService.GetSavedPhotosAsync();
-            foreach (var photo in newPhotos)
+            var savedPhotos = await _photoService.GetSavedPhotosAsync();
+
+            foreach (var photo in savedPhotos)
             {
-                Photos.Add(photo);
+                if (_loadedPhotoUrls.Add(photo.UrlRegular))
+                {
+                    Photos.Add(photo);
+                }
             }
+
             _isInitialized = true;
         }
         catch (Exception ex)
@@ -60,14 +67,20 @@ public class SavedPhotosViewModel : ObservableObject
             return;
 
         _isLoading = true;
+
         try
         {
             _currentPage++;
-            var newPhotos = await _photoService.GetSavedPhotosAsync();
-            foreach (var photo in newPhotos)
+            var savedPhotos = await _photoService.GetSavedPhotosAsync();
+
+            if (savedPhotos == null || !savedPhotos.Any()) return;
+
+            foreach (var photo in savedPhotos)
             {
-                await Task.Delay(100);
-                Photos.Add(photo);
+                if (_loadedPhotoUrls.Add(photo.UrlRegular))
+                {
+                    Photos.Add(photo);
+                }
             }
         }
         catch (Exception ex)
